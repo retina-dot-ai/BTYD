@@ -350,10 +350,10 @@ pnbd.PAlive <- function(params, x, t.x, T.cal) {
         A0 <- F1/((beta + t.x)^(r + s + x)) - F2/((beta + T.cal)^(r + s + x))
     }
 
+    purchase_exp <- (alpha + T.cal)^(r + x)
+    purchase_exp[which(!is.finite(purchase_exp))] <- max(purchase_exp[purchase_exp!=Inf])
 
-
-
-    return((1 + s/(r + s + x) * (alpha + T.cal)^(r + x) * (beta + T.cal)^s * A0)^(-1))
+    return((1 + s/(r + s + x) * purchase_exp * (beta + T.cal)^s * A0)^(-1))
 }
 
 pnbd.Expectation <- function(params, t) {
