@@ -97,14 +97,16 @@ pnbd.LL <- function(params, x, t.x, T.cal) {
 
     if (absab == 0) {
       part2_times_F1_min_F2 <- stump * (half1 - half2)
-    }
-    else {
-      F1 = h2f1(w, param2, w+1, absab / b)
-      F2 = h2f1(w, param2, w+1, absab / d)
+    } else {
+      F1 <- h2f1(w, param2, w+1, absab / b)
+      F2 <- h2f1(w, param2, w+1, absab / d)
 
-      part2_times_F1_min_F2 = stump * (F1 * half1 - F2 * half2)
+      part2_times_F1_min_F2 <- stump * (F1 * half1 - F2 * half2)
     }
-    return(part1 + part2 + log(1+(s/w)*part2_times_F1_min_F2) )
+
+    result <- part1 + part2 + log(1+(s/w)*part2_times_F1_min_F2)
+    result[where(!is.finite(result))] <- 0
+    return(result)
 }
 
 
